@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+body { @apply bg-slate-100 text-slate-800 antialiased; }
+
+:focus-visible { outline: 2px solid #0d9488; outline-offset: 2px; }
+
+/* FullCalendar con la paleta de la app */
+.fc { --fc-border-color: #e2e8f0; --fc-today-bg-color: #f0fdfa; --fc-button-bg-color: #fff;
+      --fc-button-text-color: #334155; --fc-button-border-color: #cbd5e1;
+      --fc-button-hover-bg-color: #f1f5f9; --fc-button-hover-border-color: #94a3b8;
+      --fc-button-active-bg-color: #0f766e; --fc-button-active-border-color: #0f766e; font-size: .85rem; }
+.fc .fc-button-primary:not(:disabled).fc-button-active { color: #fff; }
+.fc .fc-toolbar-title { font-size: 1.15rem; font-weight: 600; text-transform: capitalize; }
+.fc-event { cursor: pointer; border-radius: 6px; padding: 1px 3px; }
+.fc-event.bloqueo { background: repeating-linear-gradient(45deg,#e2e8f0,#e2e8f0 6px,#f1f5f9 6px,#f1f5f9 12px) !important;
+                    border-color: #cbd5e1 !important; }
+.fc-event.bloqueo .fc-event-main { color: #475569 !important; }

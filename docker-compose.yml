@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres:17
+    container_name: mediagenda_db
+    environment:
+      POSTGRES_USER: mediagenda
+      POSTGRES_PASSWORD: mediagenda_dev
+      POSTGRES_DB: mediagenda
+      TZ: America/Caracas
+    ports:
+      - "127.0.0.1:5435:5432"
+    volumes:
+      - mediagenda_data:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mediagenda"]
+      interval: 5s
+      retries: 30
+      start_period: 60s
+
+  # Respaldo automático: pg_dump cada BACKUP_INTERVAL segundos, conserva los últimos 7
+  backup:
+    image: postgres:17
+    container_name: mediagenda_backup
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PGHOST: db
+      PGUSER: mediagenda
+      PGPASSWORD: mediagenda_dev
+      PGDATABASE: mediagenda
+      TZ: America/Caracas
+      BACKUP_INTERVAL: 86400
+    volumes:
+      - ./backups:/backups
+      - ./db/backup.sh:/backup.sh:ro
+    entrypoint: ["sh", "/backup.sh"]
+
+volumes:
+  mediagenda_data:

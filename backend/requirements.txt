@@ -1,0 +1,11 @@
+fastapi==0.120.0
+uvicorn[standard]==0.38.0
+psycopg[binary,pool]==3.2.12
+pydantic[email]==2.12.3
+PyJWT==2.10.1
+python-multipart==0.0.20
+reportlab==4.4.4
+qrcode==8.2
+python-dotenv==1.2.1
+pytest==8.4.2
+httpx==0.28.1
